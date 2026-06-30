@@ -10,6 +10,18 @@
 
 ## 未发布(Unreleased)
 
+### Step 9 · 版本与发布流水线(配置 + 交接)· 2026-06-30
+**包**:`@fengnovo/kui`(api-extractor 门禁)、root(Changesets)、`.github/`(workflows)。无 Changeset —— 仅基建配置,未改已发布产物。
+- **破坏性变更门禁(api-extractor)**:`packages/kui/api-extractor.json` 产出公共 API 报告 `etc/kui.api.md`(已入库);`api:check`(CI 比对,API 变了未更报告即 fail)/`api:update`(本地刷新)。顺手把 `ButtonVariants` 补进公共导出(消除 forgotten-export,API 报告 warning-free)。
+- **Changesets**:root 加 `@changesets/cli`;`.changeset/config.json`(access public / baseBranch main,Step 1 已建)。
+- **GitHub Actions**:
+  - `ci.yml` —— PR/push:install → lint → typecheck → build → **api:check 门禁** → test → E2E+视觉。
+  - `release.yml` —— push main 两段式:`changesets/action` 开/更新 "Version Packages" PR,合并后 `changeset publish`(带 provenance,需 `NPM_TOKEN`)。
+  - `canary.yml` —— `workflow_dispatch` 手动发 `canary` tag 预览版。
+  - `docs.yml` —— 可选:Storybook 部署 GitHub Pages(项目页子路径需配 base)。
+- 验证:本地 `api:update` 生成基线、`api:check` 通过;全门槛(lint 0 warning/typecheck/test 37/build/check:publish)全绿。
+- **基建交接(需你在 GitHub/npm 手动做,本步未连外部、未发包)**:① 建 GitHub 仓库并推送;② npm 生成 `@fengnovo` 发布权限的 Automation Token → 仓库 `Settings → Secrets → NPM_TOKEN`;③ `main` 开 branch protection(必过 CI);④ 首次提交前 `git init` 并把 `pnpm-lock.yaml`/`etc/kui.api.md`/视觉基线一起入库;⑤ CI(Linux)首次需生成 `*-linux.png` 视觉基线(用 Playwright 官方 Docker 镜像本地生成,或 CI 跑一次 `--update-snapshots` 提交);⑥(可选)Settings → Pages 选 GitHub Actions 启用文档站。
+
 ### Step 7 + 8 · 测试体系全链路 + Storybook · 2026-06-30
 **包**:`docs`、`e2e`(均 private;无 Changeset —— 未改动任何已发布包的产物)
 - **Storybook 8(`apps/docs`)**:`@storybook/react-vite` + `addon-essentials` + `addon-a11y`;`main.ts` 就近 glob `packages/kui/src/**/*.stories.tsx`;`preview.ts` 引入令牌 `vars.css`/`theme-dark.css`,工具栏切 `data-theme`(演示换肤,组件不改)。

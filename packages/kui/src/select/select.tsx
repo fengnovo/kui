@@ -24,20 +24,21 @@ export function Select({
   'aria-labelledby': ariaLabelledby,
 }: SelectProps) {
   const s = useSelect({ options, value, defaultValue, onChange });
+  const { open, setOpen } = s;
   const rootRef = useRef<HTMLDivElement>(null);
   const current = options.find((o) => o.value === s.selected);
 
   // 外部 pointerdown 关闭(放渲染层,保持 Headless 内核不含 DOM)
   useEffect(() => {
-    if (!s.open) return;
+    if (!open) return;
     const onPointerDown = (e: PointerEvent) => {
       if (rootRef.current && !rootRef.current.contains(e.target as Node)) {
-        s.setOpen(false);
+        setOpen(false);
       }
     };
     document.addEventListener('pointerdown', onPointerDown);
     return () => document.removeEventListener('pointerdown', onPointerDown);
-  }, [s.open, s.setOpen]);
+  }, [open, setOpen]);
 
   return (
     <div className="kui-select" ref={rootRef}>

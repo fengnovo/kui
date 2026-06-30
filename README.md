@@ -132,7 +132,7 @@ flowchart LR
     dist --> cs["Changeset<br/>变更说明"]
 ```
 
-### 5. 两段式发布(Step 9 · 规划中)
+### 5. 两段式发布(Step 9 · 配置就绪)
 
 push main 开 Version PR → 人工 review 合并 → 自动 publish。发版可审阅、可控,而非 push 即发。
 
@@ -166,7 +166,7 @@ sequenceDiagram
 | Step 6 | 复杂组件(Select)· Headless 内核 + 无障碍 + 键盘 | ✅ 已落地 |
 | Step 7 | 测试体系(单元/集成/axe/E2E/视觉回归) | ✅ 已落地 |
 | Step 8 | 文档站(Storybook) | ✅ 已落地(部署留 Step 9) |
-| Step 9 | 版本与发布流水线(Changesets + GitHub Actions) | ⬜ 规划中 |
+| Step 9 | 版本与发布流水线(Changesets + GitHub Actions) | ✅ 配置就绪(待基建交接) |
 
 变更记录见 [`docs/CHANGELOG.md`](docs/CHANGELOG.md);架构决策记录见 [`docs/adr/`](docs/adr/)。
 

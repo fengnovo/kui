@@ -16,6 +16,7 @@
     "release": "changeset publish"
   },
   "devDependencies": {
+    "@changesets/cli": "^2",
     "turbo": "^2",
     "typescript": "^5"
   },

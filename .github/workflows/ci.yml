@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4 # 读 package.json#packageManager 安装对应 pnpm
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm build
+
+      # 破坏性变更门禁:公共 API 变了但 etc/kui.api.md 未更新 → 卡 PR
+      - run: pnpm --filter @fengnovo/kui api:check
+
+      - run: pnpm test
+
+      # E2E + 视觉回归(以 Storybook 为渲染源)
+      # 注意:视觉基线带 OS 像素特征,需提前提交 Linux 基线(*-linux.png),见 docs/CHANGELOG 与交接清单
+      - name: E2E + visual
+        run: |
+          pnpm --filter e2e exec playwright install --with-deps chromium
+          pnpm e2e

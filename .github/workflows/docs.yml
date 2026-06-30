@@ -1,0 +1,43 @@
+name: Docs
+
+# 可选:把 Storybook 部署到 GitHub Pages。需先在仓库 Settings → Pages 选 "GitHub Actions"。
+# 注意:项目页是子路径(/<repo>/),Storybook/Vite 资源默认从根 /assets 取会 404;
+# 若用项目页,需给 build-storybook 配 base(见交接清单)。自定义域/组织页根路径则无需。
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build # 令牌 vars.css 等产物
+      - run: pnpm build-storybook
+        env:
+          STORYBOOK_DISABLE_TELEMETRY: '1'
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/docs/storybook-static
+      - uses: actions/deploy-pages@v4
+        id: deployment
