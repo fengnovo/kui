@@ -1,11 +1,19 @@
 {
   "name": "@fengnovo/kui-tokens",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
-  "sideEffects": ["**/*.css"],
-  "files": ["dist"],
-  "publishConfig": { "access": "public" },
-  "engines": { "node": ">=18" },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
+  },
   "exports": {
     ".": {
       "types": "./dist/tokens.d.ts",
