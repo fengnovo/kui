@@ -10,6 +10,12 @@
 
 ## 未发布(Unreleased)
 
+### CI · Release npm 发布认证修复 · 2026-06-30
+**包**:`.github/`(无 Changeset —— 纯 CI 发布认证)
+- `release.yml` 在 `changesets/action` 前显式把 GitHub Secret `NPM_TOKEN` 接到 npm CLI 识别的 `NODE_AUTH_TOKEN`,并写入 runner 的 user `.npmrc`。
+- 新增 `npm whoami` 发布前检查:先验证 CI 是否正确读取 npm token,失败时不进入 `changeset publish`。
+- `changesets/action` 同时传 `NPM_TOKEN` 与 `NODE_AUTH_TOKEN`,与 `canary.yml` 的认证变量保持一致。
+
 ### CI · Linux 视觉基线生成工作流 · 2026-06-30
 **包**:`.github/`(无 Changeset —— 纯 CI 基建)
 - 新增 `.github/workflows/visual-update.yml`(`workflow_dispatch`):在 GitHub `ubuntu-latest` runner 上跑 `e2e:update` 生成 `-linux.png` 视觉基线并自动 commit/push 回触发分支。
