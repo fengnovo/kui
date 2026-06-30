@@ -18,7 +18,7 @@
   - `ci.yml` —— PR/push:install → lint → typecheck → build → **api:check 门禁** → test → E2E+视觉。
   - `release.yml` —— push main 两段式:`changesets/action` 开/更新 "Version Packages" PR,合并后 `changeset publish`(带 provenance,需 `NPM_TOKEN`)。
   - `canary.yml` —— `workflow_dispatch` 手动发 `canary` tag 预览版。
-  - `docs.yml` —— 可选:Storybook 部署 GitHub Pages(项目页子路径需配 base)。
+  - `docs.yml` —— 可选:Storybook 部署 GitHub Pages。项目页子路径已接 base:`main.ts` 的 `viteFinal` 读 `STORYBOOK_BASE_PATH`,`docs.yml` 注入 `/${{ github.event.repository.name }}/`(本地不设该 env → base 保持 `/`,本地构建不受影响;manager 用相对路径天然适配子路径)。自定义域/用户页可删该 env。
 - 验证:本地 `api:update` 生成基线、`api:check` 通过;全门槛(lint 0 warning/typecheck/test 37/build/check:publish)全绿。
 - **基建交接(需你在 GitHub/npm 手动做,本步未连外部、未发包)**:① 建 GitHub 仓库并推送;② npm 生成 `@fengnovo` 发布权限的 Automation Token → 仓库 `Settings → Secrets → NPM_TOKEN`;③ `main` 开 branch protection(必过 CI);④ 首次提交前 `git init` 并把 `pnpm-lock.yaml`/`etc/kui.api.md`/视觉基线一起入库;⑤ CI(Linux)首次需生成 `*-linux.png` 视觉基线(用 Playwright 官方 Docker 镜像本地生成,或 CI 跑一次 `--update-snapshots` 提交);⑥(可选)Settings → Pages 选 GitHub Actions 启用文档站。
 

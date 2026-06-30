@@ -35,6 +35,8 @@ jobs:
       - run: pnpm build-storybook
         env:
           STORYBOOK_DISABLE_TELEMETRY: '1'
+          # 项目页子路径:base = /<repo>/(自动取仓库名)。自定义域/用户页可删此行。
+          STORYBOOK_BASE_PATH: /${{ github.event.repository.name }}/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
