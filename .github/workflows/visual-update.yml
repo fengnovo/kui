@@ -28,17 +28,22 @@ jobs:
 
       - run: pnpm --filter e2e exec playwright install --with-deps chromium
 
-      # 复用 e2e:update(= playwright test --update-snapshots),在 Linux 上生成基线
+      # 复用 e2e:update(= playwright test --update-snapshots),在 Linux 上生成基线。
+      # 首次创建基线时 Playwright 会以非 0 退出 —— 但 PNG 已写入磁盘,故这里不让它中断 job。
       - run: pnpm --filter e2e e2e:update
+        continue-on-error: true
 
       - name: Commit Linux baselines
+        if: always()
         run: |
+          echo "=== 生成的基线 ==="
+          ls -la e2e/*-snapshots/ || true
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add e2e
           if git diff --staged --quiet; then
-            echo "No snapshot changes."
+            echo "No snapshot changes —— 上一步可能没生成 PNG(看上面的 ls 与 e2e:update 日志)。"
           else
             git commit -m "test(e2e): add Linux visual baselines"
-            git push
+            git push origin HEAD:${{ github.ref_name }}
           fi
