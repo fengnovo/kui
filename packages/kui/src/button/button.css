@@ -1,5 +1,69 @@
-/* 占位样式:仅证明 sideEffects + injectStyle:false 产出独立 .css。
-   真实样式(只消费语义令牌变量、cva 变体)见 Step 4。 */
+/* 组件样式只消费语义令牌变量(var(--*)),禁裸色值。
+   变量底座由 @fengnovo/kui-tokens 的 vars.css / theme-dark.css 提供;
+   换肤 = 切 data-theme / data-brand 作用域,组件代码无需改动。 */
+
 .kui-btn {
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color 0.15s,
+    border-color 0.15s,
+    color 0.15s;
+}
+
+/* —— variant —— */
+.kui-btn--solid {
+  background: var(--brand-primary);
+  color: var(--text-on-brand);
+}
+.kui-btn--solid:hover:not(:disabled) {
+  background: var(--brand-primary-hover);
+}
+
+.kui-btn--outline {
+  background: transparent;
+  border-color: var(--brand-primary);
+  color: var(--brand-primary);
+}
+.kui-btn--outline:hover:not(:disabled) {
+  background: var(--bg-subtle);
+}
+
+.kui-btn--ghost {
+  background: transparent;
+  color: var(--brand-primary);
+}
+.kui-btn--ghost:hover:not(:disabled) {
+  background: var(--bg-subtle);
+}
+
+/* —— size —— */
+.kui-btn--sm {
+  height: 28px;
+  padding: 0 12px;
+}
+.kui-btn--md {
+  height: 36px;
+  padding: 0 16px;
+}
+.kui-btn--lg {
+  height: 44px;
+  padding: 0 20px;
+}
+
+/* —— state —— */
+.kui-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.kui-btn:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
 }

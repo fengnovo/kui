@@ -1,14 +1,22 @@
 import { forwardRef } from 'react';
 import type { ButtonHTMLAttributes } from 'react';
+import { clsx } from 'clsx';
+import { buttonVariants, type ButtonVariants } from './button.variants';
 import './button.css';
 
-// 最小占位实现:仅用于打通 Step 2 的产物管线(.js/.cjs/.d.ts/.css)。
-// 真实实现(variants / loading / a11y)见 docs/impl-guide.md Step 4–5。
-export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
+// Step 4:接上 cva 变体映射(variant/size → className)。
+// loading / spinner / aria-busy 与测试、Story 见 Step 5。
+export interface ButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement>,
+    ButtonVariants {}
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, children, ...rest }, ref) => (
-    <button ref={ref} className={['kui-btn', className].filter(Boolean).join(' ')} {...rest}>
+  ({ variant, size, className, children, ...rest }, ref) => (
+    <button
+      ref={ref}
+      className={clsx(buttonVariants({ variant, size }), className)}
+      {...rest}
+    >
       {children}
     </button>
   ),
