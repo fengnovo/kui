@@ -1,0 +1,44 @@
+name: Visual Update
+
+# 手动触发:在 GitHub Linux runner 上生成/更新视觉基线(-linux.png)并提交回当前分支。
+# 基线必须"有意更新"——故独立工作流、手动触发,绝不混进常规 CI 自动 --update-snapshots。
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update-snapshots:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }} # 在你 dispatch 选的分支上跑
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build # tokens vars.css 等,Storybook 渲染源依赖
+
+      - run: pnpm --filter e2e exec playwright install --with-deps chromium
+
+      # 复用 e2e:update(= playwright test --update-snapshots),在 Linux 上生成基线
+      - run: pnpm --filter e2e e2e:update
+
+      - name: Commit Linux baselines
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add e2e
+          if git diff --staged --quiet; then
+            echo "No snapshot changes."
+          else
+            git commit -m "test(e2e): add Linux visual baselines"
+            git push
+          fi

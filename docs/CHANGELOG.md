@@ -10,6 +10,13 @@
 
 ## 未发布(Unreleased)
 
+### CI · Linux 视觉基线生成工作流 · 2026-06-30
+**包**:`.github/`(无 Changeset —— 纯 CI 基建)
+- 新增 `.github/workflows/visual-update.yml`(`workflow_dispatch`):在 GitHub `ubuntu-latest` runner 上跑 `e2e:update` 生成 `-linux.png` 视觉基线并自动 commit/push 回触发分支。
+- 解决首个 PR 的 `build-test` 失败:本地只有 `-darwin` 基线,CI(Linux)缺 `-linux.png` → 3 条截图测试报 "snapshot doesn't exist"。
+- 设计:基线在与 `build-test` 同一环境生成,逐像素一致;手动触发以保证"基线有意更新"(不混入常规 CI 自动更新,否则视觉回归失效);`-darwin`/`-linux` 并存。
+- 注意:`GITHUB_TOKEN` 的 push 不自动触发新 workflow → 基线提交后需手动 Re-run `build-test`。
+
 ### Step 9 · 版本与发布流水线(配置 + 交接)· 2026-06-30
 **包**:`@fengnovo/kui`(api-extractor 门禁)、root(Changesets)、`.github/`(workflows)。无 Changeset —— 仅基建配置,未改已发布产物。
 - **破坏性变更门禁(api-extractor)**:`packages/kui/api-extractor.json` 产出公共 API 报告 `etc/kui.api.md`(已入库);`api:check`(CI 比对,API 变了未更报告即 fail)/`api:update`(本地刷新)。顺手把 `ButtonVariants` 补进公共导出(消除 forgotten-export,API 报告 warning-free)。
