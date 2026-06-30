@@ -10,6 +10,17 @@
 
 ## 未发布(Unreleased)
 
+### Step 7 + 8 · 测试体系全链路 + Storybook · 2026-06-30
+**包**:`docs`、`e2e`(均 private;无 Changeset —— 未改动任何已发布包的产物)
+- **Storybook 8(`apps/docs`)**:`@storybook/react-vite` + `addon-essentials` + `addon-a11y`;`main.ts` 就近 glob `packages/kui/src/**/*.stories.tsx`;`preview.ts` 引入令牌 `vars.css`/`theme-dark.css`,工具栏切 `data-theme`(演示换肤,组件不改)。
+- **Stories**:`button.stories.tsx`(Solid/AllVariants/Sizes/Loading)、`select.stories.tsx`(Default/Controlled);`autodocs` 自动 Props 表;受控示例抽成大写组件满足 rules-of-hooks。
+- **Playwright(`e2e`)**:`playwright.config.ts` 以 Storybook(`--ci -p 6006`)为 webServer/渲染源,视觉 `maxDiffPixelRatio 0.01`。
+  - E2E:`select.e2e.spec.ts` —— 键盘全流程(ArrowDown 开→高亮→Enter 选中,跳过 disabled)、disabled `force:true` 点击验证内核 no-op、时序断言(`aria-activedescendant` 指向真实节点)。
+  - 视觉回归:`button-all-variants` / `button-sizes` / `select-open` 基线入库(`*-snapshots/*-darwin.png`)。
+- **接线**:root 加 `storybook` / `build-storybook` / `e2e` 脚本;`@storybook/react` 同时加到 `docs` 与 `kui`(解决 pnpm 下 vite 从两处解析的问题)。
+- 验证:`build-storybook` 编译通过;`pnpm --filter e2e e2e` **5 测试全绿**;全门槛(lint/typecheck/test/build/check:publish)未受影响。
+- 偏差/注意:视觉基线带 OS 像素特征(`-darwin`),CI(Linux)首次需重生成基线 —— 留 Step 9。Storybook 部署(GitHub Pages)属基建,留 Step 9。
+
 ### Step 6 · Select(Headless 内核 + 键盘 + a11y)· 2026-06-30
 **包**:`@fengnovo/kui`(minor)
 - `src/select/use-select.ts` —— Headless 内核:交互状态机 + 键盘(↑↓/Home/End/Enter/Space/Esc)+ ARIA + 受控/非受控。仅 import React hooks、无 DOM 查询,`renderHook` 可纯逻辑测。

@@ -1,0 +1,23 @@
+{
+  "name": "docs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "dependencies": {
+    "@fengnovo/kui": "workspace:*",
+    "@fengnovo/kui-tokens": "workspace:*"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "^8",
+    "@storybook/addon-essentials": "^8",
+    "@storybook/react": "^8",
+    "@storybook/react-vite": "^8",
+    "react": "^18",
+    "react-dom": "^18",
+    "storybook": "^8",
+    "vite": "^5"
+  }
+}

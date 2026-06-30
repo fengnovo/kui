@@ -62,6 +62,7 @@
     "@arethetypeswrong/cli": "^0.18",
     "@fengnovo/kui-tsconfig": "workspace:*",
     "@fengnovo/kui-eslint-config": "workspace:*",
+    "@storybook/react": "^8",
     "@testing-library/jest-dom": "^6",
     "@testing-library/react": "^16",
     "@types/react": "^18",

@@ -57,8 +57,8 @@ graph TD
 
     classDef done fill:#dcfce7,stroke:#16a34a,color:#14532d;
     classDef planned fill:#f1f5f9,stroke:#94a3b8,color:#475569,stroke-dasharray:4 3;
-    class kui,tokens,tsconfig,eslintcfg done;
-    class icons,docs,e2e planned;
+    class kui,tokens,tsconfig,eslintcfg,docs,e2e done;
+    class icons planned;
 ```
 
 > 🟩 已落地 · ⬜ 规划中(虚线边=尚未建立的依赖)
@@ -118,7 +118,7 @@ flowchart LR
     class src,tsup,esm,cjs,dts,css,check,ok1,ok2 done;
 ```
 
-### 4. 单组件全链路(Step 5 范式 · 规划中)
+### 4. 单组件全链路(Button/Select 已跑通)
 
 新组件"沿同一条轨道走":代码 → 样式 → 测试 → 文档 → 产物。
 
@@ -164,8 +164,8 @@ sequenceDiagram
 | Step 4 | 样式落地(CSS Vars + cva) | ✅ 已落地 |
 | Step 5 | 第一个组件垂直切片(Button)打通全链路 | ✅ 已落地(Story 归 Step 8) |
 | Step 6 | 复杂组件(Select)· Headless 内核 + 无障碍 + 键盘 | ✅ 已落地 |
-| Step 7 | 测试体系(单元/集成/axe/E2E/视觉回归) | ⬜ 规划中 |
-| Step 8 | 文档站(Storybook) | ⬜ 规划中 |
+| Step 7 | 测试体系(单元/集成/axe/E2E/视觉回归) | ✅ 已落地 |
+| Step 8 | 文档站(Storybook) | ✅ 已落地(部署留 Step 9) |
 | Step 9 | 版本与发布流水线(Changesets + GitHub Actions) | ⬜ 规划中 |
 
 变更记录见 [`docs/CHANGELOG.md`](docs/CHANGELOG.md);架构决策记录见 [`docs/adr/`](docs/adr/)。
