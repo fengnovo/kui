@@ -161,7 +161,7 @@ sequenceDiagram
 | Step 1 | 工程骨架(Monorepo:pnpm + Turborepo + 共享 tsconfig/eslint) | ✅ 已落地 |
 | Step 2 | 构建产物体系(tsup 双格式 + 独立入口 + publint/attw 体检) | ✅ 已落地 |
 | Step 3 | 设计令牌管线(DTCG + Style Dictionary 4) | ✅ 已落地 |
-| Step 4 | 样式落地(CSS Vars + cva) | ⬜ 规划中 |
+| Step 4 | 样式落地(CSS Vars + cva) | ✅ 已落地 |
 | Step 5 | 第一个组件垂直切片(Button)打通全链路 | ⬜ 规划中 |
 | Step 6 | 复杂组件(Select)· Headless 内核 + 无障碍 + 键盘 | ⬜ 规划中 |
 | Step 7 | 测试体系(单元/集成/axe/E2E/视觉回归) | ⬜ 规划中 |

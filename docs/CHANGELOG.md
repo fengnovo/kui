@@ -10,6 +10,15 @@
 
 ## 未发布(Unreleased)
 
+### Step 4 · 样式落地(CSS Vars + cva) · 2026-06-30
+**包**:`@fengnovo/kui`(minor)
+- `src/button/button.variants.ts`:cva 定义 `variant(solid/outline/ghost)` × `size(sm/md/lg)` + `defaultVariants`,props→className 纯映射、零运行时。
+- `src/button/button.css`:真实样式只消费语义令牌 `var(--*)`(`brand-primary` / `brand-primary-hover` / `text-on-brand` / `bg-subtle` 等),无裸色值;含 hover / disabled / focus-visible 态。
+- `src/button/button.tsx`:占位升级为接上 `buttonVariants`(`variant/size → className`);`loading/spinner/aria-busy` 留 Step 5。
+- stylelint:`stylelint.config.mjs`(`color-no-hex` + `color-named:never`)纳入 `kui` 的 `lint`,裸色值视为 error(已负向测试验证可拦截 `#fff` / `red`)。
+- **CSS 消费策略(决策)**:组件 CSS 不打包 tokens 的 `vars.css`,仅 `var()` 引用;变量底座由消费者/Storybook 显式 `import '@fengnovo/kui-tokens/vars.css'` 提供。`kui` 将 `@fengnovo/kui-tokens` 列为 `dependency`。理由:令牌作为主题底座应可独立换版本/切主题文件,不被复制进组件包。
+- 验证:Button 用到的 4 个 `var(--*)` 全部在 `vars.css` 定义(0 缺失);其中 `--bg-subtle` 在 `theme-dark.css` 被覆盖 → 暗色下 hover 自动适配、组件不动。视觉换肤截图待 Step 8(Storybook)。
+
 ### 文档与流程 · 2026-06-30
 - 新增本变更记录 `docs/CHANGELOG.md`,回填 Step 1–3;在 `CLAUDE.md` 工程硬规则中约定「每个 Step/变更结束需在此追加记录」。
 - 新增项目 `README.md`:含 5 张 Mermaid 图(Monorepo 包依赖、组件库分层架构、构建产物流水线、单组件全链路、两段式发布时序)+ 包布局表 + 进度表 + 常用命令。
