@@ -1,0 +1,5 @@
+/* 占位样式:仅证明 sideEffects + injectStyle:false 产出独立 .css。
+   真实样式(只消费语义令牌变量、cva 变体)见 Step 4。 */
+.kui-btn {
+  display: inline-flex;
+}

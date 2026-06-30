@@ -1,0 +1,4 @@
+{
+  "extends": "@fengnovo/kui-tsconfig/base.json",
+  "include": ["src"]
+}
