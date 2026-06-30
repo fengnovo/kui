@@ -7,6 +7,8 @@ const preview: Preview = {
   parameters: {
     controls: { matchers: { color: /(background|color)$/i, date: /Date$/i } },
     backgrounds: { disable: true }, // 背景由 data-theme 令牌驱动,关掉 SB 自带背景
+    // 左栏排序:「快速开始」总览页置顶,组件随后
+    options: { storySort: { order: ['快速开始', 'Button', 'Select', 'Switch'] } },
   },
   // 工具栏切主题:演示"切 data-theme 即换肤,组件不改"
   globalTypes: {

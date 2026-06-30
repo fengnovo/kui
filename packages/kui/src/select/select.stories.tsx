@@ -14,6 +14,23 @@ const meta: Meta<typeof Select> = {
   component: Select,
   tags: ['autodocs'],
   args: { options, 'aria-label': '水果' },
+  parameters: {
+    docs: {
+      description: {
+        component: [
+          '下拉选择。受控/非受控,Headless 内核 + 键盘(方向键/Home/End/Enter/Esc)+ ARIA;禁用项自动跳过。',
+          '```tsx',
+          "import { Select } from '@fengnovo/kui';        // 全量",
+          "import { Select } from '@fengnovo/kui/select'; // 按需(推荐)",
+          "import '@fengnovo/kui/styles.css';",
+          '',
+          'const options = [{ value: "a", label: "Apple" }];',
+          '<Select options={options} value={v} onChange={setV} aria-label="水果" />',
+          '```',
+        ].join('\n'),
+      },
+    },
+  },
 };
 export default meta;
 

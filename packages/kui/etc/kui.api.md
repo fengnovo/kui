@@ -53,6 +53,21 @@ export interface SelectProps {
     value?: string;
 }
 
+// @public (undocumented)
+export const Switch: react.ForwardRefExoticComponent<SwitchProps & react.RefAttributes<HTMLButtonElement>>;
+
+// @public (undocumented)
+export interface SwitchProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onChange' | 'type'>, SwitchVariants {
+    checked?: boolean;
+    defaultChecked?: boolean;
+    onCheckedChange?: (checked: boolean) => void;
+}
+
+// Warning: (ae-forgotten-export) The symbol "switchVariants" needs to be exported by the entry point index.d.ts
+//
+// @public (undocumented)
+export type SwitchVariants = VariantProps<typeof switchVariants>;
+
 // @public
 export function useSelect(input: UseSelectArgs): {
     open: boolean;
@@ -91,6 +106,30 @@ export interface UseSelectArgs {
     // (undocumented)
     options: SelectOption[];
     value?: string;
+}
+
+// @public
+export function useSwitch(input: UseSwitchArgs): {
+    on: boolean;
+    toggle: () => void;
+    getRootProps: () => {
+        type: "button";
+        role: "switch";
+        'aria-checked': boolean;
+        'aria-disabled': true | undefined;
+        disabled: boolean | undefined;
+        onClick: () => void;
+    };
+};
+
+// @public (undocumented)
+export interface UseSwitchArgs {
+    checked?: boolean;
+    defaultChecked?: boolean;
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    onCheckedChange?: (checked: boolean) => void;
 }
 
 // (No @packageDocumentation comment for this package)

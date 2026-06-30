@@ -10,6 +10,20 @@
 
 ## 未发布(Unreleased)
 
+### 文档站 · Storybook 快速开始页 + 每组件用法片段 · 2026-06-30
+**包**:`apps/docs`(无 Changeset —— 仅文档站,stories 不进 `dist`)
+- 新增 `apps/docs/docs/getting-started.mdx`「快速开始」总览页:安装(`@fengnovo/kui` + 令牌 + peerDeps)、引样式(组件 + 令牌底座两层)、全量 vs 按需引入、`data-theme` 换肤、组件清单。
+- `main.ts` stories glob 增加 `../docs/**/*.mdx` 入口;`preview.ts` 加 `storySort` 让「快速开始」置顶。
+- Button/Select/Switch 三个 stories 的 `meta` 补 `docs.description.component`:autodocs 页顶部展示 import 与最小用法片段。
+- 根 `README.md` 新增「安装与使用」节(安装 / 引样式两层 / 按需引入 / 换肤),与 Storybook「快速开始」页同源,方便只看 GitHub 的用户。
+
+### 组件 · 新增 Switch 开关 + 加组件指引文档 · 2026-06-30
+**包**:`@fengnovo/kui`(Changeset:minor)
+- 新增 `Switch` 组件:受控/非受控、`sm/md/lg` 尺寸、`disabled`;交互沉淀到 Headless 内核 `useSwitch`(可脱离 DOM 单测);渲染为原生 `<button role="switch">`,键盘可达、axe 0 违规;独立入口 `@fengnovo/kui/switch` 支持按需。
+- 完成「三处注册」:`src/index.ts` barrel、`tsup.config.ts` entry、`package.json` exports(import/require 各带 `types`)。
+- 新增 [`docs/adding-a-component.md`](adding-a-component.md):加组件的 checklist 式操作手册(决策是否要 Headless → 建文件 → 三处注册 → DOD 逐条 → 收尾 → 验收命令),以 `button`/`switch`/`select` 为对照范例。
+- 质量门槛全过:typecheck/lint(裸色值 0)、54 测试通过(switch 覆盖率 100%)、`build` 产出 `dist/switch/*`、`publint` + `attw --pack` 无 error。
+
 ### CI · npm provenance 仓库元数据修复 · 2026-06-30
 **包**:`@fengnovo/kui`、`@fengnovo/kui-tokens`(无 Changeset —— 首发包元数据修复,不改版本)
 - 两个发布包补充 `repository.url: https://github.com/fengnovo/kui`,与 GitHub Actions provenance 中的仓库信息一致。

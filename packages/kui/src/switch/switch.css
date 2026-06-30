@@ -1,0 +1,71 @@
+/* 组件样式只消费语义令牌变量(var(--*)),禁裸色值。
+   变量底座由 @fengnovo/kui-tokens 的 vars.css / theme-dark.css 提供;
+   换肤 = 切 data-theme / data-brand 作用域,组件代码无需改动。 */
+
+.kui-switch {
+  --kui-switch-w: 40px; /* 几何尺寸(非颜色),由 size 变体覆盖 */
+  --kui-switch-h: 24px;
+  --kui-switch-gap: 2px;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: var(--kui-switch-w);
+  height: var(--kui-switch-h);
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  background: var(--border-default); /* 关:轨道用中性边框色 */
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.kui-switch[data-state='checked'] {
+  background: var(--brand-primary); /* 开:轨道用品牌色 */
+}
+
+/* —— 滑块:从 currentColor 无关,使用页面底色令牌,随主题自动适配 —— */
+.kui-switch__thumb {
+  position: absolute;
+  top: 50%;
+  left: var(--kui-switch-gap);
+  width: calc(var(--kui-switch-h) - var(--kui-switch-gap) * 2 - 2px);
+  height: calc(var(--kui-switch-h) - var(--kui-switch-gap) * 2 - 2px);
+  border-radius: 50%;
+  background: var(--bg-default);
+  transform: translate(0, -50%);
+  transition: transform 0.15s;
+}
+
+.kui-switch[data-state='checked'] .kui-switch__thumb {
+  /* 位移 = 轨道宽 - 滑块宽 - 两侧间隙 - 边框 */
+  transform: translate(
+    calc(var(--kui-switch-w) - var(--kui-switch-h)),
+    -50%
+  );
+}
+
+/* —— size(仅改几何尺寸,颜色不变)—— */
+.kui-switch--sm {
+  --kui-switch-w: 32px;
+  --kui-switch-h: 20px;
+}
+.kui-switch--md {
+  --kui-switch-w: 40px;
+  --kui-switch-h: 24px;
+}
+.kui-switch--lg {
+  --kui-switch-w: 48px;
+  --kui-switch-h: 28px;
+}
+
+/* —— state —— */
+.kui-switch:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.kui-switch:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}
