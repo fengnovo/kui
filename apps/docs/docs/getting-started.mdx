@@ -1,0 +1,105 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="快速开始" />
+
+# @fengnovo/kui
+
+生产级自研 React 组件库:Design Token → CSS Variables 换肤、Headless Hook 行为层、按需可 tree-shake。
+
+---
+
+## 安装
+
+```bash
+# 组件主包 + 令牌底座
+pnpm add @fengnovo/kui @fengnovo/kui-tokens
+
+# peerDependencies(项目里通常已有)
+pnpm add react react-dom
+```
+
+> 要求 `react` / `react-dom` >= 18。包同时提供 ESM 与 CJS 产物,每个入口都带类型声明。
+
+---
+
+## 引入样式(必需)
+
+组件 CSS 只消费**语义令牌 CSS 变量**,所以要同时引入「组件样式」和「令牌底座」两层。建议在应用入口引一次:
+
+```ts
+// 1) 令牌底座:定义 --brand-primary / --bg-default 等变量(必需)
+import '@fengnovo/kui-tokens/vars.css';
+// 2) 暗色主题变量(可选,需要换肤时引)
+import '@fengnovo/kui-tokens/theme-dark.css';
+// 3) 组件样式(必需)
+import '@fengnovo/kui/styles.css';
+```
+
+漏引令牌底座时,组件会因为拿不到 `var(--*)` 而显示异常;漏引组件样式则没有任何视觉。
+
+---
+
+## 使用
+
+### 全量引入
+
+```tsx
+import { Button, Switch } from '@fengnovo/kui';
+
+export function Demo() {
+  return (
+    <>
+      <Button variant="solid">确定</Button>
+      <Switch defaultChecked aria-label="深色模式" />
+    </>
+  );
+}
+```
+
+### 按需引入(推荐)
+
+每个组件都有独立子路径入口,只打入用到的组件:
+
+```tsx
+import { Button } from '@fengnovo/kui/button';
+import { Switch } from '@fengnovo/kui/switch';
+import { Select } from '@fengnovo/kui/select';
+```
+
+包已设 `sideEffects: ["**/*.css"]` 并按组件拆分入口——支持 tree-shake 的打包器(Vite / webpack5 / Rollup / esbuild)只会打入实际引用的组件,CSS 不会被误删。
+
+---
+
+## 换肤(切作用域,不改组件代码)
+
+换肤靠在任意祖先元素上切 `data-theme` / `data-brand` 作用域,令牌变量随之级联,组件代码无需改动:
+
+```tsx
+// 整页暗色
+<html data-theme="dark">…</html>
+
+// 局部作用域:只让某个区域暗色
+<section data-theme="dark">
+  <Button>区域内自动适配</Button>
+</section>
+```
+
+> 右上角工具栏的 **Theme** 切换,演示的就是切 `data-theme` 即换肤——组件本身没有任何主题分支逻辑。
+
+---
+
+## 组件清单
+
+| 组件 | 按需入口 | 说明 |
+| --- | --- | --- |
+| **Button** | `@fengnovo/kui/button` | 按钮,`solid/outline/ghost` × `sm/md/lg`,`loading` |
+| **Select** | `@fengnovo/kui/select` | 下拉选择,Headless 内核 + 键盘 + ARIA |
+| **Switch** | `@fengnovo/kui/switch` | 开关,受控/非受控 + `sm/md/lg` |
+
+左侧导航点开各组件,可看到 **Props 表 + 交互示例 + a11y 检查**(底部 Accessibility 面板)。
+
+---
+
+## 贡献:如何新增组件
+
+想往库里加组件,见仓库内的操作手册 `docs/adding-a-component.md`(决策是否要 Headless → 建文件 → 三处注册 → DOD → 收尾 → 验收命令),并以 Button / Switch / Select 为对照范例。

@@ -53,6 +53,16 @@
         "default": "./dist/select/index.cjs"
       }
     },
+    "./switch": {
+      "import": {
+        "types": "./dist/switch/index.d.ts",
+        "default": "./dist/switch/index.js"
+      },
+      "require": {
+        "types": "./dist/switch/index.d.cts",
+        "default": "./dist/switch/index.cjs"
+      }
+    },
     "./styles.css": "./dist/index.css"
   },
   "scripts": {

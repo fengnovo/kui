@@ -4,6 +4,47 @@
 
 技术栈:**pnpm + Turborepo** 编排 · **tsup**(JS)+ **api-extractor**(类型)打包 · **Design Token → CSS Variables + cva** 样式 · **自研 Headless Hook** 行为层 · **Vitest + Testing Library + axe + Playwright** 测试 · **Changesets + GitHub Actions** 发布 · **Storybook 8** 文档。
 
+> 完整交互文档见 Storybook「快速开始」页(本地 `pnpm --filter docs storybook`);本节是其精简版。
+
+---
+
+## 安装与使用
+
+```bash
+# 组件主包 + 令牌底座(peerDeps:react / react-dom >= 18)
+pnpm add @fengnovo/kui @fengnovo/kui-tokens
+```
+
+**引入样式(必需,两层):** 组件 CSS 只消费语义令牌变量,需同时引「令牌底座」和「组件样式」。在应用入口引一次:
+
+```ts
+import '@fengnovo/kui-tokens/vars.css';        // 令牌底座:定义 --brand-primary 等(必需)
+import '@fengnovo/kui-tokens/theme-dark.css';  // 暗色变量(可选,换肤时引)
+import '@fengnovo/kui/styles.css';             // 组件样式(必需)
+```
+
+**使用组件 —— 按需引入(推荐):** 每个组件有独立子路径入口,配合 `sideEffects` 配置,只打入实际引用的组件:
+
+```tsx
+import { Button } from '@fengnovo/kui/button';
+import { Switch } from '@fengnovo/kui/switch';
+import { Select } from '@fengnovo/kui/select';
+
+<Button variant="solid">确定</Button>
+<Switch defaultChecked aria-label="深色模式" />
+```
+
+> 也可全量引入 `import { Button, Switch } from '@fengnovo/kui'`;支持 tree-shake 的打包器同样只会打入用到的组件。
+
+**换肤(切作用域,不改组件代码):** 在任意祖先切 `data-theme` / `data-brand`,令牌变量随之级联:
+
+```tsx
+<html data-theme="dark">…</html>      {/* 整页暗色 */}
+<section data-theme="dark">…</section> {/* 仅局部暗色 */}
+```
+
+> 想新增组件,见操作手册 [`docs/adding-a-component.md`](docs/adding-a-component.md)。
+
 ---
 
 ## 包布局

@@ -5,6 +5,22 @@ const meta: Meta<typeof Button> = {
   title: 'Button',
   component: Button,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: [
+          '按钮组件。`solid/outline/ghost` × `sm/md/lg`,支持 `loading`(置灰禁用 + spinner + `aria-busy`)。',
+          '```tsx',
+          "import { Button } from '@fengnovo/kui';        // 全量",
+          "import { Button } from '@fengnovo/kui/button'; // 按需(推荐)",
+          "import '@fengnovo/kui/styles.css';",
+          '',
+          '<Button variant="solid" size="md">确定</Button>',
+          '```',
+        ].join('\n'),
+      },
+    },
+  },
 };
 export default meta;
 
