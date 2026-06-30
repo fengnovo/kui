@@ -10,6 +10,11 @@
 
 ## 未发布(Unreleased)
 
+### CI · npm provenance 仓库元数据修复 · 2026-06-30
+**包**:`@fengnovo/kui`、`@fengnovo/kui-tokens`(无 Changeset —— 首发包元数据修复,不改版本)
+- 两个发布包补充 `repository.url: https://github.com/fengnovo/kui`,与 GitHub Actions provenance 中的仓库信息一致。
+- `repository.directory` 分别指向 monorepo 子目录,便于 npm 包页和 provenance 校验识别来源。
+
 ### CI · Release npm 发布认证修复 · 2026-06-30
 **包**:`.github/`(无 Changeset —— 纯 CI 发布认证)
 - `release.yml` 在 `changesets/action` 前显式把 GitHub Secret `NPM_TOKEN` 接到 npm CLI 识别的 `NODE_AUTH_TOKEN`,并写入 runner 的 user `.npmrc`。
