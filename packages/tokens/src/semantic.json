@@ -1,0 +1,17 @@
+{
+  "brand": {
+    "primary":       { "$value": "{color.blue.500}", "$type": "color" },
+    "primary-hover": { "$value": "{color.blue.600}", "$type": "color" }
+  },
+  "bg": {
+    "default": { "$value": "{color.neutral.0}",   "$type": "color" },
+    "subtle":  { "$value": "{color.neutral.100}", "$type": "color" }
+  },
+  "border": {
+    "default": { "$value": "{color.neutral.200}", "$type": "color" }
+  },
+  "text": {
+    "default": { "$value": "{color.neutral.900}", "$type": "color" },
+    "onBrand": { "$value": "{color.neutral.0}",   "$type": "color" }
+  }
+}

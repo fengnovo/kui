@@ -1,0 +1,9 @@
+{
+  "bg": {
+    "default": { "$value": "{color.neutral.900}", "$type": "color" },
+    "subtle":  { "$value": "{color.neutral.900}", "$type": "color" }
+  },
+  "text": {
+    "default": { "$value": "{color.neutral.50}", "$type": "color" }
+  }
+}

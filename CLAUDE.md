@@ -29,7 +29,7 @@
 - 同时支持受控/非受控:`value !== undefined` 判定受控,内部 state 不得覆盖外部 value。
 - `package.json` 必须设 `"sideEffects": ["**/*.css"]`,且每个 `exports` 入口都带 `types`;每个**发布包**设 `"publishConfig": { "access": "public" }`(scoped 包默认 restricted)。
 - 每个组件至少 1 条 `axe` 无障碍断言;键盘可达;ARIA 正确。
-- 每个 Step/组件结束:跑通 typecheck/lint/build,写一条 Changeset 变更说明。
+- 每个 Step/组件结束:跑通 typecheck/lint/build,写一条 Changeset 变更说明,并在 `docs/CHANGELOG.md` 顶部「未发布」区追加一条人读变更记录(每次有意义的变更都补,不止 Step 收尾)。
 
 ## 质量门槛(达不到不算完成)
 - TypeScript strict 通过;ESLint 0 error;Stylelint 0 error(裸色值视为 error)。

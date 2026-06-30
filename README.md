@@ -57,8 +57,8 @@ graph TD
 
     classDef done fill:#dcfce7,stroke:#16a34a,color:#14532d;
     classDef planned fill:#f1f5f9,stroke:#94a3b8,color:#475569,stroke-dasharray:4 3;
-    class kui,tsconfig,eslintcfg done;
-    class tokens,icons,docs,e2e planned;
+    class kui,tokens,tsconfig,eslintcfg done;
+    class icons,docs,e2e planned;
 ```
 
 > 🟩 已落地 · ⬜ 规划中(虚线边=尚未建立的依赖)
@@ -160,7 +160,7 @@ sequenceDiagram
 |---|---|---|
 | Step 1 | 工程骨架(Monorepo:pnpm + Turborepo + 共享 tsconfig/eslint) | ✅ 已落地 |
 | Step 2 | 构建产物体系(tsup 双格式 + 独立入口 + publint/attw 体检) | ✅ 已落地 |
-| Step 3 | 设计令牌管线(DTCG + Style Dictionary 4) | ⬜ 规划中 |
+| Step 3 | 设计令牌管线(DTCG + Style Dictionary 4) | ✅ 已落地 |
 | Step 4 | 样式落地(CSS Vars + cva) | ⬜ 规划中 |
 | Step 5 | 第一个组件垂直切片(Button)打通全链路 | ⬜ 规划中 |
 | Step 6 | 复杂组件(Select)· Headless 内核 + 无障碍 + 键盘 | ⬜ 规划中 |
@@ -168,7 +168,7 @@ sequenceDiagram
 | Step 8 | 文档站(Storybook) | ⬜ 规划中 |
 | Step 9 | 版本与发布流水线(Changesets + GitHub Actions) | ⬜ 规划中 |
 
-架构决策记录见 [`docs/adr/`](docs/adr/)。
+变更记录见 [`docs/CHANGELOG.md`](docs/CHANGELOG.md);架构决策记录见 [`docs/adr/`](docs/adr/)。
 
 ---
 

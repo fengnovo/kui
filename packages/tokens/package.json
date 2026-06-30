@@ -1,0 +1,23 @@
+{
+  "name": "@fengnovo/kui-tokens",
+  "version": "0.0.0",
+  "type": "module",
+  "sideEffects": ["**/*.css"],
+  "files": ["dist"],
+  "publishConfig": { "access": "public" },
+  "engines": { "node": ">=18" },
+  "exports": {
+    ".": {
+      "types": "./dist/tokens.d.ts",
+      "import": "./dist/tokens.js"
+    },
+    "./vars.css": "./dist/vars.css",
+    "./theme-dark.css": "./dist/theme-dark.css"
+  },
+  "scripts": {
+    "build": "node sd.config.mjs"
+  },
+  "devDependencies": {
+    "style-dictionary": "^4"
+  }
+}
