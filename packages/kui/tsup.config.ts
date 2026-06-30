@@ -4,6 +4,7 @@ export default defineConfig({
   entry: [
     'src/index.ts', // 全量入口(barrel)
     'src/button/index.ts', // 独立组件入口 → 支持按需(每新增组件同步追加)
+    'src/select/index.ts',
   ],
   format: ['esm', 'cjs'],
   dts: true, // 生成 .d.ts

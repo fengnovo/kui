@@ -10,6 +10,20 @@
 
 ## 未发布(Unreleased)
 
+### Step 6 · Select(Headless 内核 + 键盘 + a11y)· 2026-06-30
+**包**:`@fengnovo/kui`(minor)
+- `src/select/use-select.ts` —— Headless 内核:交互状态机 + 键盘(↑↓/Home/End/Enter/Space/Esc)+ ARIA + 受控/非受控。仅 import React hooks、无 DOM 查询,`renderHook` 可纯逻辑测。
+  - 键盘跳过 disabled:在 `enabledIdx`(可用项原始下标表)上环绕移动,disabled 下标不在移动空间。
+  - aria-activedescendant 时序:虚拟焦点(焦点恒在 trigger);**先开后移**;`aria-activedescendant`/`aria-controls` 加 **open 守卫**,不指向已卸载节点。
+  - 受控判定:`value !== undefined` 分流 `selected` 读取;`commit` 受控时跳过 `setInner`(不覆盖外部 value);`open`/`activeIndex` 恒内部态不受控。
+- `src/select/select.tsx` —— 极薄渲染层:getters spread 到 `<button>`/`<ul>`/`<li>`;外部 pointerdown 关闭放此层 `useEffect`(不污染内核);支持 `aria-label`/`aria-labelledby`。
+- `src/select/select.css` —— 只消费语义令牌 `var(--*)`;`[data-active]` 高亮、`[data-selected]` 选中、`[aria-disabled]` 禁用态。
+- 测试:`use-select.test.ts`(17 例纯逻辑)+ `select.test.tsx`(10 例集成/axe,含**时序断言**:`aria-activedescendant` 指向的 id 真实存在于 DOM)。**覆盖率 100% 行/函数**。
+- 接线:barrel 加 `select`;`tsup` entry 加 `src/select/index.ts`;`exports` 加 `./select`(condition-specific types)。
+- 改进(相对 §6):open 守卫、`move` 空表守卫、`aria-haspopup=listbox`、外部点击关闭、combobox 可达名称。
+- 验证:37 测试全绿;`./select` 子路径 publint/attw 全绿;esbuild 实测 `import '@fengnovo/kui/select'` **不含 Button 代码**(kui-btn),按需打包成立。
+- 边界:typeahead / scrollIntoView / 打开即高亮选中项 标注为后续。`noUncheckedIndexedAccess` 下索引访问以 `?? -1` / `opt?` 做类型安全收口。
+
 ### Step 5 · Button 垂直切片(全链路打通)· 2026-06-30
 **包**:`@fengnovo/kui`(minor)
 - `button.tsx`:新增 `loading` —— 置灰禁用(`disabled || loading`)+ `aria-busy`(loading 时)+ 渲染 spinner;`disabled` 显式取出避免被 `{...rest}` 覆盖。

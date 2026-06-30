@@ -30,6 +30,16 @@
         "default": "./dist/button/index.cjs"
       }
     },
+    "./select": {
+      "import": {
+        "types": "./dist/select/index.d.ts",
+        "default": "./dist/select/index.js"
+      },
+      "require": {
+        "types": "./dist/select/index.d.cts",
+        "default": "./dist/select/index.cjs"
+      }
+    },
     "./styles.css": "./dist/index.css"
   },
   "scripts": {

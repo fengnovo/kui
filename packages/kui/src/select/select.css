@@ -1,0 +1,62 @@
+/* 只消费语义令牌 var(--*),禁裸色值。换肤靠 tokens 切作用域,组件不改。 */
+
+.kui-select {
+  position: relative;
+  display: inline-block;
+}
+
+.kui-select__trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 160px;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--border-default);
+  border-radius: 8px;
+  background: var(--bg-default);
+  color: var(--text-default);
+  font: inherit;
+  cursor: pointer;
+}
+.kui-select__trigger:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}
+
+.kui-select__placeholder {
+  color: var(--text-default);
+  opacity: 0.5;
+}
+
+.kui-select__list {
+  position: absolute;
+  z-index: 10;
+  inset-inline-start: 0;
+  top: calc(100% + 4px);
+  min-width: 100%;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  border: 1px solid var(--border-default);
+  border-radius: 8px;
+  background: var(--bg-default);
+}
+
+.kui-select__option {
+  padding: 6px 10px;
+  border-radius: 6px;
+  color: var(--text-default);
+  cursor: pointer;
+}
+.kui-select__option[data-active] {
+  background: var(--bg-subtle);
+}
+.kui-select__option[data-selected] {
+  color: var(--brand-primary);
+}
+.kui-select__option[aria-disabled='true'] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
