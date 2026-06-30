@@ -36,6 +36,7 @@
     "build": "tsup",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . && stylelint \"src/**/*.css\"",
+    "test": "vitest run --coverage",
     "check:publish": "publint && attw --pack"
   },
   "peerDependencies": {
@@ -51,14 +52,20 @@
     "@arethetypeswrong/cli": "^0.18",
     "@fengnovo/kui-tsconfig": "workspace:*",
     "@fengnovo/kui-eslint-config": "workspace:*",
+    "@testing-library/jest-dom": "^6",
+    "@testing-library/react": "^16",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@vitest/coverage-v8": "^2",
     "eslint": "^9",
+    "happy-dom": "^15",
     "publint": "^0.3",
     "react": "^18",
     "react-dom": "^18",
     "stylelint": "^16",
     "tsup": "^8",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^2",
+    "vitest-axe": "^0.1"
   }
 }

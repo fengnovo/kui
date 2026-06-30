@@ -4,19 +4,23 @@ import { clsx } from 'clsx';
 import { buttonVariants, type ButtonVariants } from './button.variants';
 import './button.css';
 
-// Step 4:接上 cva 变体映射(variant/size → className)。
-// loading / spinner / aria-busy 与测试、Story 见 Step 5。
 export interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
-    ButtonVariants {}
+    ButtonVariants {
+  /** loading 时按钮置灰禁用,暴露 aria-busy,并渲染 spinner。 */
+  loading?: boolean;
+}
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant, size, className, children, ...rest }, ref) => (
+  ({ variant, size, loading, disabled, className, children, ...rest }, ref) => (
     <button
       ref={ref}
       className={clsx(buttonVariants({ variant, size }), className)}
+      disabled={disabled || loading}
+      aria-busy={loading || undefined}
       {...rest}
     >
+      {loading && <span className="kui-btn__spinner" aria-hidden />}
       {children}
     </button>
   ),

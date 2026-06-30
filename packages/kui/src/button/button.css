@@ -67,3 +67,19 @@
   outline: 2px solid var(--brand-primary);
   outline-offset: 2px;
 }
+
+/* —— loading spinner(用 currentColor,随文字色自动适配,非裸色值)—— */
+.kui-btn__spinner {
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: kui-spin 0.6s linear infinite;
+}
+
+@keyframes kui-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

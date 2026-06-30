@@ -10,6 +10,16 @@
 
 ## 未发布(Unreleased)
 
+### Step 5 · Button 垂直切片(全链路打通)· 2026-06-30
+**包**:`@fengnovo/kui`(minor)
+- `button.tsx`:新增 `loading` —— 置灰禁用(`disabled || loading`)+ `aria-busy`(loading 时)+ 渲染 spinner;`disabled` 显式取出避免被 `{...rest}` 覆盖。
+- `button.css`:新增 `.kui-btn__spinner` + `@keyframes kui-spin`,边框用 `currentColor`(随文字色自适配,非裸色值、stylelint 通过)。
+- 测试栈(guide §7 雏形):`vitest.config.ts`(happy-dom + globals + v8 覆盖率,门槛 lines/functions 80)、`vitest.setup.ts`(jest-dom + vitest-axe matchers);`kui` 加 `test: vitest run --coverage`。
+- `button.test.tsx`:10 条用例,覆盖默认/variant/size 映射、className 合并、loading(禁用+aria-busy+spinner)、未 loading 反例、disabled 透传、ref 转发、原生 props 透传、loading 时不触发 onClick、axe 无障碍。**覆盖率 100%**。
+- `tsconfig.json`:exclude `*.test.*` / `*.stories.tsx` —— `tsc` 守库代码,行为交给 vitest。
+- 验证:`pnpm test`(turbo)全绿;`dist` 无 test/story 污染、spinner css 已入产物;`publint` / `attw` 仍全绿。
+- 边界:Story 文件与 Storybook 一起归 **Step 8**(避免现在引入悬空 `@storybook/*` 依赖)。
+
 ### Step 4 · 样式落地(CSS Vars + cva) · 2026-06-30
 **包**:`@fengnovo/kui`(minor)
 - `src/button/button.variants.ts`:cva 定义 `variant(solid/outline/ghost)` × `size(sm/md/lg)` + `defaultVariants`,props→className 纯映射、零运行时。
