@@ -7,11 +7,45 @@ const meta: Meta<typeof Switch> = {
   component: Switch,
   tags: ['autodocs'],
   args: { 'aria-label': '开关' },
+  argTypes: {
+    checked: {
+      control: 'boolean',
+      description: '受控开关状态。传入即为受控;需配合 `onCheckedChange`。',
+      table: { category: '受控', type: { summary: 'boolean' } },
+    },
+    defaultChecked: {
+      control: 'boolean',
+      description: '非受控初始状态。',
+      table: { category: '非受控', type: { summary: 'boolean' } },
+    },
+    onCheckedChange: {
+      action: 'checkedChange',
+      description: '状态变化回调,入参为新的开关状态。',
+      table: { category: '受控', type: { summary: '(checked: boolean) => void' } },
+    },
+    size: {
+      control: 'inline-radio',
+      options: ['sm', 'md', 'lg'],
+      description: '尺寸。',
+      table: { defaultValue: { summary: 'md' }, type: { summary: 'sm | md | lg' } },
+    },
+    disabled: {
+      control: 'boolean',
+      description: '禁用态,不可交互。',
+      table: { type: { summary: 'boolean' } },
+    },
+    'aria-label': {
+      control: 'text',
+      description: 'switch 可达名称。与 `aria-labelledby` 二选一。',
+      table: { category: '无障碍' },
+    },
+  },
   parameters: {
     docs: {
       description: {
         component: [
-          '开关组件。受控/非受控、`sm/md/lg`、`disabled`;渲染为原生 `<button role="switch">`,键盘可达。',
+          '开关组件。受控 / 非受控、`sm / md / lg`、`disabled`;渲染为原生 `<button role="switch">`,键盘可达。',
+          '',
           '```tsx',
           "import { Switch } from '@fengnovo/kui';        // 全量",
           "import { Switch } from '@fengnovo/kui/switch'; // 按需(推荐)",

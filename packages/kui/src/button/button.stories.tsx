@@ -5,11 +5,38 @@ const meta: Meta<typeof Button> = {
   title: 'Button',
   component: Button,
   tags: ['autodocs'],
+  args: { children: 'Button' },
+  argTypes: {
+    variant: {
+      control: 'inline-radio',
+      options: ['solid', 'outline', 'ghost'],
+      description: '视觉变体。',
+      table: { defaultValue: { summary: 'solid' }, type: { summary: 'solid | outline | ghost' } },
+    },
+    size: {
+      control: 'inline-radio',
+      options: ['sm', 'md', 'lg'],
+      description: '尺寸。',
+      table: { defaultValue: { summary: 'md' }, type: { summary: 'sm | md | lg' } },
+    },
+    loading: {
+      control: 'boolean',
+      description: 'loading 时置灰禁用,渲染 spinner 并暴露 `aria-busy`。',
+      table: { type: { summary: 'boolean' } },
+    },
+    disabled: {
+      control: 'boolean',
+      description: '禁用态。',
+      table: { type: { summary: 'boolean' } },
+    },
+    children: { control: 'text', description: '按钮内容。' },
+  },
   parameters: {
     docs: {
       description: {
         component: [
-          '按钮组件。`solid/outline/ghost` × `sm/md/lg`,支持 `loading`(置灰禁用 + spinner + `aria-busy`)。',
+          '按钮组件。`solid / outline / ghost` × `sm / md / lg`,支持 `loading`(置灰禁用 + spinner + `aria-busy`)。',
+          '',
           '```tsx',
           "import { Button } from '@fengnovo/kui';        // 全量",
           "import { Button } from '@fengnovo/kui/button'; // 按需(推荐)",
