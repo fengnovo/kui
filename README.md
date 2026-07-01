@@ -213,13 +213,34 @@ sequenceDiagram
 
 ---
 
+## 本地开发
+
+这是**组件库**而非应用,没有传统的网页 dev server —— 日常开发看 **Storybook**。两步即可跑起来:
+
+```bash
+pnpm install     # 1. monorepo 根目录一次装全工作区依赖
+pnpm storybook   # 2. 起 Storybook → http://localhost:6006
+```
+
+`pnpm storybook`(= `pnpm --filter docs storybook`)起在 `apps/docs`,加载 `packages/kui/src/**/*.stories.tsx`(Button / Select / Switch)与「快速开始」MDX 页;改组件源码热更新。
+
+> **依赖顺序**:`turbo.json` 中 `typecheck / test / build` 均 `dependsOn ^build`,依赖包需先构建。刚 clone 后建议先 `pnpm build` 一次,再单独跑子包的 `typecheck` / `test`;根目录的 `pnpm typecheck` 等会由 Turbo 自动补齐前置构建。
+
+---
+
 ## 常用命令
 
 ```bash
 pnpm install                              # 安装工作区依赖
+pnpm storybook                            # 起 Storybook(本地开发界面)→ :6006
 pnpm build                                # turbo 增量构建全部包(二次命中 cache)
+pnpm test                                 # Vitest 单测 + 覆盖率(全仓)
+pnpm typecheck                            # tsc strict --noEmit(全仓)
+pnpm lint                                 # ESLint 0 error + Stylelint(裸色值算 error)
+pnpm build-storybook                      # 构建静态 Storybook(CI / GitHub Pages)
+pnpm e2e                                  # Playwright E2E + 视觉回归
 pnpm --filter @fengnovo/kui build         # 只构建主包
-pnpm lint && pnpm typecheck               # ESLint 0 error + tsc strict
+pnpm --filter @fengnovo/kui test          # 只测主包
 pnpm --filter @fengnovo/kui check:publish # 发布前产物体检(publint + attw)
 ```
 

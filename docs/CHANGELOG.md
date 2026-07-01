@@ -10,6 +10,19 @@
 
 ## 未发布(Unreleased)
 
+### 文档站 · 修复「快速开始」组件清单不渲染 · 2026-07-01
+**包**:`apps/docs`(无 Changeset —— 仅文档站)
+- 现象:`getting-started.mdx` 的组件清单 markdown 表格原样显示成 `|` 管道符文本(见截图)。
+- 根因:markdown 表格是 **GFM 扩展语法**,Storybook 8 的 MDX 默认不解析(代码块/行内 code 属核心语法故正常)。
+- 排查过程(三条路都验过):① 加 `remark-gfm` 走 addon-docs 的 `mdxPluginOptions`——`build` 生效但 `dev` 不生效(SB8 dev/build 该选项管线不一致);② 改原生 `<table>` JSX——SB 的 MDX→Vite 管线报 `invalid JS syntax` 致整页 404(隔离 `@mdx-js/mdx` 却能编过,属 SB 特有);③ **最终改用无序列表**(CommonMark 核心语法,`dev`/`build` 均稳定渲染)。
+- 结论:组件清单以 `- **组件** · 入口 `xxx` — 说明` 列表呈现;已本地起 dev server 验证页面正常编译、三项条目齐全、无编译错误。remark-gfm / addon-docs 依赖与 `main.ts` 相关改动均已回退,只留一条注释说明为何不用 markdown 表格。
+
+### 文档站 · Storybook stories 优化(修复代码块 + 补 argTypes)· 2026-07-01
+**包**:`apps/docs`(无 Changeset —— 仅文档站,stories 不进 `dist`)
+- 修复 autodocs 顶部说明里的用法代码块渲染错乱:markdown-to-jsx@7(Storybook 8.6 docs 渲染器)在代码围栏 ```` ``` ```` 紧跟段落文本、且围栏内部含空行时,无法识别围栏 → 反引号原样显示、内部空行把内容拆成两段(即截图现象)。修复:Button/Select/Switch 三处描述在围栏前补一个空行(已用该版本本地复现并验证,补空行后正常渲染为 `<pre>` 代码块)。
+- 三个组件补 `argTypes`:每个 prop 加中文描述、`control` 类型、`table`(受控/非受控/无障碍 分类、默认值、类型摘要),autodocs 属性表更完整可读。
+- Select 新增 `Preselected`(`defaultValue`)故事;`Controlled` 故事补当前值实时展示。Button `meta` 补默认 `children`,受控故事沿用大写组件满足 rules-of-hooks。
+
 ### 文档站 · Storybook 快速开始页 + 每组件用法片段 · 2026-06-30
 **包**:`apps/docs`(无 Changeset —— 仅文档站,stories 不进 `dist`)
 - 新增 `apps/docs/docs/getting-started.mdx`「快速开始」总览页:安装(`@fengnovo/kui` + 令牌 + peerDeps)、引样式(组件 + 令牌底座两层)、全量 vs 按需引入、`data-theme` 换肤、组件清单。
