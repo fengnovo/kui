@@ -90,11 +90,11 @@ import { Select } from '@fengnovo/kui/select';
 
 ## 组件清单
 
-| 组件 | 按需入口 | 说明 |
-| --- | --- | --- |
-| **Button** | `@fengnovo/kui/button` | 按钮,`solid/outline/ghost` × `sm/md/lg`,`loading` |
-| **Select** | `@fengnovo/kui/select` | 下拉选择,Headless 内核 + 键盘 + ARIA |
-| **Switch** | `@fengnovo/kui/switch` | 开关,受控/非受控 + `sm/md/lg` |
+{/* 用列表而非 markdown 表格:GFM 表格语法在 Storybook 8 的 MDX 里不被解析(dev 会原样显示成管道符文本);列表是 CommonMark 核心语法,dev/build 均正常渲染。 */}
+
+- **Button** · 入口 `@fengnovo/kui/button` — 按钮,`solid` / `outline` / `ghost` × `sm` / `md` / `lg`,`loading`
+- **Select** · 入口 `@fengnovo/kui/select` — 下拉选择,Headless 内核 + 键盘(方向键 / Home / End / Enter / Esc)+ ARIA
+- **Switch** · 入口 `@fengnovo/kui/switch` — 开关,受控 / 非受控 + `sm` / `md` / `lg`
 
 左侧导航点开各组件,可看到 **Props 表 + 交互示例 + a11y 检查**(底部 Accessibility 面板)。
 
